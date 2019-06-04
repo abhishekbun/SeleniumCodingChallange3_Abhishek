@@ -26,7 +26,6 @@ public class TestCase1 extends TestBase {
 		homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
 		TestUtil.pageLoad_ImplicitWait();
 		String titleOFPage = driver.getTitle();
-		System.out.println("TITLE OF THE PAGE ::: "+titleOFPage);
 		
 		for(int i=1;i<=10;i++) {
 			titleOFPage = driver.getTitle();
@@ -39,12 +38,6 @@ public class TestCase1 extends TestBase {
 			else {
 				break;
 			}
-		}
-		
-		
+		}	
 	}
-	
-	
-	
-
 }

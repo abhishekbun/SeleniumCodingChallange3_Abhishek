@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="CAPSULE CRM">
+	<test name="Coding Challange 3">
+		<classes>
+		<class name="org.abk.crm.testcases.TestCase1"></class>
+		</classes>	
+	</test>
+</suite>

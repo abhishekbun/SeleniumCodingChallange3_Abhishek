@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Data Provider Demo">
+
+	<parameter name="url" value="http://focissit.agility.com/login.aspx" />
+	<parameter name="userName" value="exportjob" />
+	<parameter name="password" value="q" />
+
+	<test name="@Provider Annotation">
+		<classes>
+		
+			<class name="org.abk.crm.testcases.TestNG_DataProvider" />
+		
+		</classes>
+	
+	</test>
+
+</suite>

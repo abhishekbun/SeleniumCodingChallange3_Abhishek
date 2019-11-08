@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="CAPSULE CRM" verbose="5">
+<suite name="CAPSULE CRM">
+
+	<listeners>
+	
+		<listener class-name="com.abk.crm.ExtentReportListener.ExtentReportListener" />
+		
+	</listeners>
 	<test name="Coding Challange 3">
 		<classes>
 		<class name="org.abk.crm.testcases.TestCase1"></class>

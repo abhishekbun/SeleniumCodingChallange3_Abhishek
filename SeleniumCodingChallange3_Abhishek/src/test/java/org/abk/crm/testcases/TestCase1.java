@@ -4,6 +4,7 @@ import org.abk.crm.base.TestBase;
 import org.abk.crm.pages.HomePage;
 import org.abk.crm.pages.LoginPage;
 import org.abk.crm.utils.TestUtil;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -38,6 +39,9 @@ public class TestCase1 extends TestBase {
 			else {
 				break;
 			}
+			//driver.findElement(By.cssSelector)
+			//wait.until(ExpectedConditions.element)
+			//driver.switchTo().window(arg0)
 		}	
 	}
 }

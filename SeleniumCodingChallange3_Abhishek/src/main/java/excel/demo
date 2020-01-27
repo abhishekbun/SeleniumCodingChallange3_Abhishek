@@ -1,0 +1,274 @@
+import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
+import com.kms.katalon.core.cucumber.keyword.CucumberBuiltinKeywords as CucumberKW
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testcase.TestCase as TestCase
+import com.kms.katalon.core.testdata.TestData as TestData
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import internal.GlobalVariable as GlobalVariable
+
+
+
+for (def row = 1; row <= findTestData('Air_Console_Job').getRowNumbers(); row++) {
+	
+	'Login into FOCIS Site (SIT/Agile/Demo/Live ) valid credentials'
+	CustomKeywords.'browser.SignIn.As'(GlobalVariable.JP_username, GlobalVariable.Jp_password)
+	
+    //----------------------------------------------------------------------
+    def Product = findTestData('Air_Console_Job').getValue('Product', row)
+
+    def ProductType = findTestData('Air_Console_Job').getValue('ProductType', row)
+
+    def JobScope = findTestData('Air_Console_Job').getValue('JobScope', row)
+
+    //----------------------------------------------------------------------
+    def Shipper = findTestData('Air_Console_Job').getValue('Shipper', row)
+
+    def Consignee = findTestData('Air_Console_Job').getValue('Consignee', row)
+
+    def NotifyParty = findTestData('Air_Console_Job').getValue('Notify  Party', row)
+	
+	def billToParty = findTestData('Air_Console_Job').getValue('Bill To Party', row)
+
+    //----------------------------------------------------------------------
+    def IncoTerm = findTestData('Air_Console_Job').getValue('IncoTerm', row)
+
+    //----------------------------------------------------------------------
+    def AirportOfDeparture = findTestData('Air_Console_Job').getValue('AirportOfDeparture', row)
+
+    def AirportOfArrival = findTestData('Air_Console_Job').getValue('AirportOfArrival', row)
+
+    //----------------------------------------------------------------------
+    def O_Country = findTestData('Air_Console_Job').getValue('O_Country', row)
+
+    def O_NetworkComponent = findTestData('Air_Console_Job').getValue('O_NetworkComponent', row)
+
+    def O_Department = findTestData('Air_Console_Job').getValue('O_Department', row)
+
+    def O_IsLive = findTestData('Air_Console_Job').getValue('O_IsLive', row)
+
+    //----------------------------------------------------------------------
+    def D_Country = findTestData('Air_Console_Job').getValue('D_Country', row)
+
+    def D_NetworkComponent = findTestData('Air_Console_Job').getValue('D_NetworkComponent', row)
+
+    def D_Department = findTestData('Air_Console_Job').getValue('D_Department', row)
+
+    def D_IsLive = findTestData('Air_Console_Job').getValue('D_IsLive', row)
+
+    //----------------------------------------------------------------------
+    def GR_WT = findTestData('Air_Console_Job').getValue('GR_WT', row)
+
+    def Tot_Vol = findTestData('Air_Console_Job').getValue('Tot_Vol', row)
+
+    def Halulier_Pre_Carriage = findTestData('Air_Console_Job').getValue('Halulier_Pre_Carriage', row)
+
+    //----------------------------------------------------------------------
+    def JobType = findTestData('Air_Console_Job').getValue('JobType', row)
+
+    def SupplierName = findTestData('Air_Console_Job').getValue('SupplierName', row)
+
+    //----------------------------------------------------------------------
+    def cargoType = findTestData('Air_Console_Job').getValue('Commodity/Cargo Type', row)
+
+    def orgComponent = findTestData('Air_Console_Job').getValue('Sold By/Sales Org Comp', row)
+
+    /* // ***** Initiate Job Page ********************/
+    //////////////////////////////////////////////////////////////////////////////////////////
+    'Navigate to Job- Job Booking'
+    CustomKeywords.'browser.FOCiS_Menu.navigateTo'('Job', 'Job Booking')
+
+    'Click on /Book Without template/ button'
+    CustomKeywords.'jp.initiate.job.Create.BookWithOutTemplate'()
+
+    'Select Product, ProductType & Jobscope'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_1.Initiation_Page_1'(Product, ProductType, JobScope)
+
+    'Select Origin stakholder'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_1.selectStakeholder'(Shipper, findTestObject('Job_Processing/Ocean/JobBooking_Template/New Job/Shipper_Destination_Popup/Shipper_PopUp'))
+
+    'Select Destination stakholder'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_1.selectStakeholder'(Consignee, findTestObject('Job_Processing/Ocean/JobBooking_Template/New Job/Shipper_Destination_Popup/Consignee_PopUp'))
+
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_1.selectStakeholder'(NotifyParty, findTestObject('Job_Processing/Ocean/JobBooking_Template/New Job/Shipper_Destination_Popup/notifyPartyPopup'))
+
+    'Click on /Next/ button'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_1.click_next_button'()
+
+    // ***** Initiate Job Page 2 ********************///////////////////////////////////////////////////////////////////////////////////////////
+    'Selct Incoterms'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_2_Air.selectIncoTerms'(IncoTerm, 'NAZ AUTOMATION')
+
+    'Selct HAWB Airport of Departure'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_2_Air.Select_HAWB'(AirportOfDeparture, findTestObject('Job_Processing/Air/UpTo_JobCreation/HAWB_Airport_of_Departure'))
+
+    'Selct HAWB Airport of Arrival'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_2_Air.Select_HAWB'(AirportOfArrival, findTestObject('Job_Processing/Air/UpTo_JobCreation/HAWB_Airport_of_Arrival'))
+
+    'Select origin office '
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_2_Air.Origin_or_Destination_Office'(O_Country, O_NetworkComponent, 
+        O_Department, O_IsLive, findTestObject('Job_Processing/Ocean/JobBooking_Template/new JOB Billing details/Origin_Office_Icon'))
+
+    'Select Destination office '
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_2_Air.Origin_or_Destination_Office'(D_Country, D_NetworkComponent, 
+        D_Department, D_IsLive, findTestObject('Job_Processing/Ocean/JobBooking_Template/new JOB Billing details/Destination_Office_Icon'))
+
+    'Click on /Next/ button in 2nd page '
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_2_Air.click_next_button'()
+
+    // ***** Initiate Job Page 3 ********************///////////////////////////////////////////////////////////////////////////////////////////
+    'Click on /Next/ button in 3rd page '
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_3.click_next_button'()
+
+    // ***** Initiate Job Page 4 ********************///////////////////////////////////////////////////////////////////////////////////////////
+    'Select Shippment Details'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_4_Air.ShipmentDetails'('120', 'BAG', GR_WT, Tot_Vol, 'cargo')
+
+    // Gross Weight & Total volume
+    'Click on Initiate Job & then /No,Thanks/ button'
+    CustomKeywords.'jp.initiate.job.Book_W_O_Template_Page_4_Air.initiateJobWithoutSavingAsTemplate'()
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    System.err.println(GlobalVariable.JobNumber)
+
+    def writeJobNo = row + 1
+
+    // Write Job No into excel
+    //CustomKeywords.'browser.Excel.setCellData'('Excel_File\\JA_Jobs', 'Air_Console', writeJobNo, 26, GlobalVariable.JobNumber)
+    CustomKeywords.'browser.Excel.setCellDataColumnName'('Excel_File\\JA_Jobs', 'Air_Console', 'Job_No', GlobalVariable.JobNumber, 
+        row)
+
+    'Add packages in Cargo tab'
+    WebUI.callTestCase(findTestCase('Air/Work_Flow_POM/E2E/B2B_W-O_Template/2_Add_Packages'), [:], FailureHandling.STOP_ON_FAILURE)
+
+    CustomKeywords.'jp.movement.air.MoreLinks.click'()
+
+    CustomKeywords.'jp.movement.air.MoreLinks.clickOnSpecialRequirements'()
+
+    CustomKeywords.'jp.movement.air.MoreLinks.selectCargoType'(cargoType)
+
+    //CustomKeywords.'jp.movement.air.MoreLinks.selectOrgComponent'(orgComponent)
+    CustomKeywords.'jp.movement.air.MoreLinks.saveSpecialRequirements'()
+
+    CustomKeywords.'jp.movement.air.MoreLinks.closeFrame'()
+
+    'Click on Movement tab'
+    CustomKeywords.'jp.movement.air.Click.Movement_Tab'()
+
+    'Add Pre carriage'
+    WebUI.callTestCase(findTestCase('Air/Work_Flow_POM/E2E/Console_House_W-O_Template/5_Add_Origin'), [('Haulier') : Halulier_Pre_Carriage], 
+        FailureHandling.STOP_ON_FAILURE)
+
+    'Click on Tasks tab'
+    CustomKeywords.'jp.air_tasks.Utility.clickTaskstab'()
+	
+	CustomKeywords.'jp.air_tasks.Add.salesOrgComponent'(orgComponent)
+	
+	CustomKeywords.'jp.air_tasks.Utility.clickOnSaveButton'()
+	
+	
+	
+
+
+	/////////////////////////////////////// Change the Bill To Party /////////////////////////////////////
+	
+	
+
+    'Select "origin transport" from optional activities'
+    CustomKeywords.'jp.air_tasks.Add.selectOptionalactivites'('Origin Transport')
+
+    'CLick on Save and close'
+    CustomKeywords.'jp.air_tasks.Add.clickSaveandCLose'()
+
+    'Perform origin transport'
+    WebUI.callTestCase(findTestCase('Air/Perform_Activities/1_Origin_OR_Destination_Transport'), [('SupplierName') : SupplierName
+            , ('reasonCode') : 'Service Provider Error', ('index') : 1], FailureHandling.STOP_ON_FAILURE)
+	
+	
+	/////////////////////////////////// Getting PS Rule Name - Print on the excel/////////////////////////////////////////////
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(3)
+	
+	CustomKeywords.'browser.Advanced.clickElement'(findTestObject('Job_Processing/Air/Movement_Tab/Origin/billingDetailsOrgnOfcIcon'), 10)
+	
+	//WebUI.click(findTestObject('Job_Processing/Air/Movement_Tab/Origin/billingDetailsOrgnOfcIcon'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(1)
+	
+	WebUI.click(findTestObject('Job_Processing/Air/Movement_Tab/Origin/billToPartyPopupIcon'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.clearText(findTestObject('Job_Processing/Air/Movement_Tab/Origin/nameAndAddress'))
+	
+	WebUI.setText(findTestObject('Job_Processing/Air/Movement_Tab/Origin/nameAndAddress'), billToParty)
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(1)
+	
+	WebUI.click(findTestObject('Job_Processing/Air/Movement_Tab/Origin/stakeholderLink'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(2)
+	
+	WebUI.click(findTestObject('Job_Processing/Air/Movement_Tab/Origin/saveBillToParty'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(2)
+	
+	CustomKeywords.'jp.air_tasks.Utility.clickOnSaveButton'()
+	
+	
+	
+	
+	
+	
+	
+	
+	'Naviagate to Job AF GTWY Schedules.'
+	CustomKeywords.'browser.FOCiS_Menu.navigateTo'('Job', 'Financial View')
+	
+	WebUI.setText(findTestObject('Job_Accounting/Finantial/jobNumber'), GlobalVariable.JobNumber)
+	
+	WebUI.click(findTestObject('Job_Accounting/Finantial/finantialViewButton'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.click(findTestObject('Job_Accounting/Finantial/moreInfoButton'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(2)
+	
+	WebUI.click(findTestObject('Job_Accounting/Finantial/jobProfitShareLink'))
+	
+	CustomKeywords.'browser.Wait_For.Page_and_JQuery_Load'()
+	
+	WebUI.delay(1)
+	
+	String psChargeCode = WebUI.getText(findTestObject('Job_Accounting/Finantial/psChargeCode'))
+	
+	println psChargeCode
+	
+	CustomKeywords.'browser.Excel.setCellDataColumnName'('Excel_File\\JA_Jobs', 'Air_Console', 'P/S Rule Name', psChargeCode,
+		row)
+	
+	WebUI.delay(1)
+	
+	WebUI.closeBrowser()
+}
+
+
